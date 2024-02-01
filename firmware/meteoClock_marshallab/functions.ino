@@ -527,11 +527,13 @@ void drawSensors() {
 #endif
 
   if (mode0scr != 3) {                      // Давление (с)НР ---------------------------
+#if SENSOR_BME280  
     lcd.setCursor(0, 3);
     if (bigDig && mode0scr == 0) lcd.setCursor(15, 3);
     if (bigDig && (mode0scr == 1 || mode0scr == 2)) lcd.setCursor(15, 0);
     if (bigDig && mode0scr == 4) lcd.setCursor(15, 1);
     if (!(bigDig && mode0scr == 1)) lcd.print(String(dispPres) + "mm");
+#endif
   } else {
     drawPres(dispPres, 0, 0);
   }
@@ -542,6 +544,7 @@ void drawSensors() {
   }
 
   if (!bigDig) {                            // дождь (с)НР -----------------------------
+#if SENSOR_BME280  
     lcd.setCursor(5, 3);
     lcd.print(" rain     ");
     lcd.setCursor(11, 3);
@@ -549,6 +552,7 @@ void drawSensors() {
     lcd.print(String(dispRain) + "%");
     //  lcd.setCursor(14, 3);
     //  lcd.print(bme.readAltitude(SEALEVELPRESSURE_HPA));  // высота над уровнем моря (с)НР
+#endif    
   }
 
   if (mode0scr != 0) {                      // время (с)НР ----------------------------
@@ -576,9 +580,12 @@ void drawSensors() {
     if (dispCO2 < 1000) lcd.print(" ");
 #endif
 
+#if SENSOR_BME280
     lcd.setCursor(0, 1);
     lcd.print(String(dispPres) + " mm  rain ");
     lcd.print(String(dispRain) + "% ");
+#endif
+
   } else {                    // для крупных цифр (с)НР
     switch (mode0scr) {
       case 0:
